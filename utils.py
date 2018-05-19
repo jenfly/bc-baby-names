@@ -35,16 +35,26 @@ def get_names_data(girls_file='data/bc-popular-girls-names.csv',
 
     printif('Performing calculations', verbose)
     data['Both Count'] = data[['Girls Count', 'Boys Count']].sum(axis=1)
+    data = data[data['Both Count'] > 0]
     nms = ['Girls', 'Boys', 'Both']
     cols_map = {f'{nm} Count' : f'{nm} Yearly Total (All Names)' for nm in nms}
     yrly_totals = data.groupby('Year').sum().rename(columns=cols_map)
 
     data = data.merge(yrly_totals, how='left', left_on='Year',
                       right_index=True)
+
+    columns = list(data.columns)
+    data['First Letter'] = data.index.str[0]
+    data['Last Letter'] = data.index.str[-1]
+    data['Last 3 Letters'] = data.index.str[-3:]
+    data = data[['First Letter', 'Last Letter', 'Last 3 Letters'] + columns]
+
     for nm in nms:
         col_numerator = f'{nm} Count'
         col_denominator = f'{nm} Yearly Total (All Names)'
         data[f'% of {nm}'] = 100 * data[col_numerator] / data[col_denominator]
+    for nm in ['Girls', 'Boys']:
+        data[f'{nm} Fraction'] = data[f'{nm} Count'] / data['Both Count']
 
-    #data = data.drop(cols_map.values(), axis=1)
+    data = data.drop(cols_map.values(), axis=1)
     return data
