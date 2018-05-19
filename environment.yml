@@ -1,0 +1,10 @@
+name: bcnames
+channels:
+- conda-forge
+dependencies:
+- python=3.6
+- jupyter
+- ipywidgets
+- numpy
+- pandas
+- matplotlib
