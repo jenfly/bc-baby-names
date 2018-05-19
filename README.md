@@ -5,3 +5,4 @@ Interactive visualizations of baby names in British Columbia from 1915 to 2014. 
 - https://catalogue.data.gov.bc.ca/dataset/most-popular-girl-names-for-the-past-100-years
 - https://catalogue.data.gov.bc.ca/dataset/most-popular-boys-names-for-the-past-100-years
 
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/jenfly/bc-baby-names/master?filepath=Baby%20Names.ipynb)
